@@ -1029,7 +1029,7 @@ class UICtrl(object):
                        'Msg_Send_Type': ["1、必填\n2、支持周期型（Cycle）和事件型(Event)"],
                        'Cycle_ms': ["1、必填\n2、周期"],
                        'Is_Extended': ["1、必填\n2、是否为扩展帧，只允许填True或False"],
-                       'Is_FD': ["1、必填\n2、是否为CANFD帧，只允许填True或False"],
+                       'Is_FD': ["1、必填\n2、是否为CANFD帧，只允许填True或False，暂时无效"],
                        'Signal_Name': [
                            "1、必填\n2、不允许出现空格\n3、须为以C语言规范字符开头（不允许为数字、标点符号开头）"],
                        'Start_Bit': [
