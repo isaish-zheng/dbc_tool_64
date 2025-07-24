@@ -592,7 +592,7 @@ class UICtrl(object):
                             if s:
                                 k = s.split('>')[0].strip()
                                 v = s.split('>')[1].strip()
-                                if k.lower().startswith('0x'):
+                                if k.lower().startswith('0x') or k.lower().startswith('-0x'):
                                     choices[int(k, 16)] = v
                                 else:
                                     choices[int(k)] = v
@@ -889,7 +889,14 @@ class UICtrl(object):
                     s_list = []
                     if choices:
                         for k, v in choices.items():
-                            s_list.append('0x' + hex(k)[2:].upper() + '>' + str(v) + ';\n')
+                            k_hex = hex(k)
+                            if k_hex.startswith('0x'):
+                                s_list.append('0x' + k_hex[2:].upper() + '>' + str(v) + ';\n')
+                            elif k_hex.startswith('-0x'):
+                                s_list.append('-0x' + k_hex[3:].upper() + '>' + str(v) + ';\n')
+                            else:
+                                self.text_log(f"真值表'{k}':'{v}'无法处理", 'error')
+                                raise ValueError
                     df.at[row_idx, 'Value_table'] = ''.join(s_list)[:-1]  # 不含末尾的'\n'
                     df.at[row_idx, 'Comment'] = str(sig.comment) if sig.comment else ''
                     row_idx = row_idx + 1
@@ -897,7 +904,7 @@ class UICtrl(object):
             render_area.insert(0, [df.shape[0] + 1, df.shape[1]])  # 添加首元素(行索引,列索引),1基
 
             # 输出日志
-            self.text_log('生成Excel数据完成', 'green')
+            self.text_log('生成Excel数据完成', 'done')
             return df
 
         # 根据给定范围渲染表格

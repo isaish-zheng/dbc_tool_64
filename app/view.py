@@ -309,7 +309,7 @@ class UIView(tk.Tk, GetDpiMixIn):
 
         """
         msg = ('产品信息: \n'
-               '    DBC Tool V1.0.0\n'
+               '    DBC Tool V2025.1.0\n'
                '    Author: ZYD\n')
         messagebox.showinfo(title='关于', message=msg)
 
